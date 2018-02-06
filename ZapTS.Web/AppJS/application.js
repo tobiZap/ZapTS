@@ -19,4 +19,21 @@
 
     zapApp.config(configFunction);
 
+    zapApp.run(['$rootScope', '$http', '$route', '$location', '$filter', function ($rootScope, $http, $route, $location, $filter) {
+        'use strict';
+
+        $http.defaults.headers.post['SessionId'] = "test";
+
+        $rootScope.$on("$locationChangeStart", function (event, next, current) {
+
+            console.log(next);
+            console.log(current);
+
+            var homeReg = /\/home/;
+            if (homeReg.test(next)) {
+                $location.path("/register");
+            }
+        });
+    }])
+
 })();
